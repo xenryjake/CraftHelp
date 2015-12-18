@@ -1,2 +1,2 @@
 # CraftHelp
-Get help with crafting
+Get help with crafting on spigot servers
