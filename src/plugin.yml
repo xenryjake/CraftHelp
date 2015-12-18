@@ -1,0 +1,7 @@
+name: CraftHelp
+version: 1.0
+author: Xenry
+main: com.xenry.crafthelp.CraftHelp
+commands:
+  craft:
+    description: crafthelp
