@@ -48,7 +48,7 @@ public class CraftHelp extends JavaPlugin implements Listener {
         if(!(b instanceof Sign)) return;
         Sign s = (Sign)b;
         if(!s.getLine(0).equalsIgnoreCase("§a[Craft]")) return;
-        e.setCancelled(!e.getPlayer().isSneaking());
+        e.setCancelled(e.isCancelled() || !e.getPlayer().isSneaking());
         open(e.getPlayer(), s.getLine(1), 0);
     }
 
@@ -84,17 +84,15 @@ public class CraftHelp extends JavaPlugin implements Listener {
             open(p, args[0], index-1);
             return;
         }if(label.equalsIgnoreCase("part")){
-            e.setCancelled(true);
-
+            //e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void on(InventoryClickEvent e){
-        if(e.isCancelled()) return;
         if(e.getClickedInventory() == null) return;
         if(e.getClickedInventory().getName() == null) return;
-        e.setCancelled(e.getClickedInventory().getName().startsWith("Recipe of "));
+        e.setCancelled(e.isCancelled() || e.getClickedInventory().getName().startsWith("Recipe of "));
     }
 
     public void open(Player p, String itemName, int index) {
@@ -131,7 +129,7 @@ public class CraftHelp extends JavaPlugin implements Listener {
             p.sendMessage("§cInvalid recipe type!");
             return;
         }
-        Inventory inv = Bukkit.getServer().createInventory(p, InventoryType.WORKBENCH, "Recipe of " + mat.toString() + " »");
+        Inventory inv = Bukkit.getServer().createInventory(p, InventoryType.WORKBENCH, "Recipe for " + mat.toString() + " »");
         int slot = 0;
         inv.setItem(slot++, r.getResult());
         for(String shape : r.getShape())
